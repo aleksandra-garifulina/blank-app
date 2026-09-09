@@ -139,9 +139,9 @@ with tab2:
                 if year_breed["name"] == "Podenco":
                     st.success(
                         "You're right! 🏺🐕 "
-                        "Dogs resembling Podencos appear in Egyptian tomb"
-                        "paintings from around **3800-3600 BCE**."
+                        "Dogs resembling Podencos appear in Egyptian tomb paintings from around **3800-3600 BCE**."
                     )
+                 
 
                 else:
 
@@ -150,6 +150,8 @@ with tab2:
                         f"The {year_breed['name']} dates back to around "
                         f"**{format_year(correct_min)}**."
                     )
+                    
+                
 
             elif year_guess < correct_min:
 
@@ -162,9 +164,7 @@ with tab2:
                 st.warning(
                     "You're getting closer 👀"
                 )
-
             else:
-
                 st.error(
                     "Nope — that's too recent!"
                 )
