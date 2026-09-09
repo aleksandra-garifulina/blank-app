@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import pandas as pd
 
 tab1, tab2, tab3 = st.tabs(["guess the breed", "trivia", "3rd thingy"])
 
@@ -204,8 +205,6 @@ with tab2:
 
     # NEW QUESTIONS
 
-
-
     st.divider()
 
     if st.button("🔄 wanna guess one more time"):
@@ -214,3 +213,11 @@ with tab2:
         st.session_state.speed_breed = random.choice(breeds)
         st.rerun()
 
+
+# PANDA DF
+
+st.divider()
+
+with st.expander("📊 Show breed data"):
+    df = pd.DataFrame(breeds)
+    st.dataframe(df, use_container_width=True)
