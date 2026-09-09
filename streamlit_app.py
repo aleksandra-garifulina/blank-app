@@ -35,43 +35,37 @@ with tab1:
 breeds = [
     {
         "name": "Podenco",
-        "year_min": -3800,
-        "year_max": -3600,
+        "year": -3800,
         "speed": 64,
     },
 
     {
         "name": "Greyhound",
-        "year_min": -5000,
-        "year_max": -5000,
+        "year": -5000,
         "speed": 72,
     },
 
     {
         "name": "Saluki",
-        "year_min": -6000,
-        "year_max": -6000,
+        "year": -6000,
         "speed": 68,
     },
 
     {
         "name": "Basenji",
-        "year_min": -3500,
-        "year_max": -3500,
+        "year": -3500,
         "speed": 40,
     },
 
     {
         "name": "Whippet",
-        "year_min": 1800,
-        "year_max": 1800,
+        "year": 1800,
         "speed": 56,
     },
 
     {
         "name": "French Bulldog",
-        "year_min": 1800,
-        "year_max": 1800,
+        "year": 1800,
         "speed": 27,
     },
 
@@ -119,56 +113,55 @@ with tab2:
             f"was first documented?"
         )
 
-        year_guess = st.slider(
+        # Get all historical dates from the breed data
+
+        year_options = sorted(
+            set(breed["year"] for breed in breeds)
+        )
+
+        year_guess = st.select_slider(
             "Choose a year:",
-            min_value=-6000,
-            max_value=2000,
-            value=-3000,
-            step=100,
+            options=year_options,
+            format_func=format_year,
         )
 
         st.caption(f"Your guess: **{format_year(year_guess)}**")
 
+
         if st.button("Submit year", key="year_button"):
-            correct_min = year_breed["year_min"]
-            correct_max = year_breed["year_max"]
 
-            if correct_min <= year_guess <= correct_max:
+            correct_year = year_breed["year"]
+            # Correct answer
 
-                # Special Podenco feedback
+            if year_guess == correct_year:
+                # Special Podenco answer
                 if year_breed["name"] == "Podenco":
                     st.success(
                         "You're right! 🏺🐕 "
-                        "Dogs resembling Podencos appear in Egyptian tomb paintings from around **3800-3600 BCE**."
+                        "Dogs resembling Podencos appear in Egyptian tomb "
+                        "paintings from around **3800 BCE**."
                     )
-                 
 
                 else:
-
                     st.success(
                         f"You're right! 🐕 "
                         f"The {year_breed['name']} dates back to around "
-                        f"**{format_year(correct_min)}**."
+                        f"**{format_year(correct_year)}**."
                     )
-                    
-                
 
-            elif year_guess < correct_min:
+            # User guessed an earlier date
 
+            elif year_guess < correct_year:
                 st.warning(
-                    "nope, they are not that old! 👀"
+                    "Nope — a bit younger! 👀"
                 )
 
-            elif year_guess < correct_max:
+            # User guessed a later date
 
-                st.warning(
-                    "You're getting closer 👀"
-                )
             else:
-                st.error(
-                    "Nope — that's too recent!"
+                st.warning(
+                    "Nope — a bit older! 👀"
                 )
-
 
 
     # QUESTION 2 — SPEED
