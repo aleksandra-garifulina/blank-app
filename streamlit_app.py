@@ -93,7 +93,7 @@ def format_year(year):
 
 with tab2:
 
-    st.write("##Dog Trivia")
+    st.write("### Dog Trivia")
 
     # Pick two independent random dogs
 
